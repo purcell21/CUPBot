@@ -36,7 +36,7 @@ def makeWebhookResult(req):
 
     # me == my email address
     # you == recipient's email address
-    me = "antonio.porcelli21@email.com"
+    me = "antonio.porcelli21@gmail.com"
     you = "antonio.porcelli@hotmail.it"
 
     # Create message container - the correct MIME type is multipart/alternative.
