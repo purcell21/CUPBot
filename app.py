@@ -38,7 +38,7 @@ def makeWebhookResult(req):
     prodotto = parameters.get("prodotto")
 
     numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
-    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
+    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." c" per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
 
     #inizio invio e-mail 
     from email.MIMEMultipart import MIMEMultipart
@@ -51,7 +51,7 @@ def makeWebhookResult(req):
     msg['From'] = fromaddr
     msg['To'] = toaddr
     msg['Subject'] = "Apertura ticket n." + str(numtck[cliente]) + " - Cliente - " + cliente
-    body = speech
+    body = "Aperto ticket n." + str(numtck[cliente]) + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'."
     msg.attach(MIMEText(body, 'plain'))
     
     server = smtplib.SMTP('smtp.gmail.com', 587)
