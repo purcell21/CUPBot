@@ -30,10 +30,17 @@ def webhook():
 def makeWebhookResult(req):
     if req.get("result").get("action") != "ticket.open":
         return {}
+    
+    result = req.get("result")
+    parameters = result.get("parameters")
+    descrizione = parameters.get("descrizione")
+    cliente = parameters.get("cliente")
+    prodotto = parameters.get("prodotto")
 
-    #server = smtplib.SMTP('smtp.gmail.com', 587)
-    #server.starttls()
-    #server.login("sdesk371@gmail.com","ServiceDesk21")
+    numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
+    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
+
+    #inizio invio e-mail 
     from email.MIMEMultipart import MIMEMultipart
     from email.MIMEText import MIMEText
     
@@ -44,7 +51,7 @@ def makeWebhookResult(req):
     msg['From'] = fromaddr
     msg['To'] = toaddr
     msg['Subject'] = "ticket"
-    body = "YOUR MESSAGE HERE"
+    body = speech
     msg.attach(MIMEText(body, 'plain'))
     
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -53,25 +60,8 @@ def makeWebhookResult(req):
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
+    #fine invio e-mail 
     
-    #msg = "YOUR MESSAGE!"
-    #server.sendmail("sdesk371@gmail.com","antonio.porcelli@hotmail.it",msg)
-    #server.quit()
-    
-    result = req.get("result")
-    parameters = result.get("parameters")
-    descrizione = parameters.get("descrizione")
-    cliente = parameters.get("cliente")
-    prodotto = parameters.get("prodotto")
-
-    #cost = {'Europe':200, 'North America':300, 'South America':400, 'Asia':500, 'Africa':600}
-    #'AO Colli':200, 'AOU Federico II':300, 'AOU Ruggi':400, 'ASL Salerno':500, 'Soresa':600, 'Santobono':700, 'Pascale':800, 'ASL Caserta':900
-    
-    numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
-    
-    #speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
-    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
-
     print("Response:")
     print(speech)
 
