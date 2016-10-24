@@ -32,10 +32,10 @@ def makeWebhookResult(req):
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
+    descrizione = parameters.get("descrizione")
     cliente = parameters.get("cliente")
     prodottto = parameters.get("prodotto")
-    descrizione = parameters.get("descrizione")
-
+    
     tckNumbers = {'AO Colli':178934, 'ASL Salerno':789876}
     
     speech = "In questo momento non riesco ad aiutarla. Ho comunque aperto il ticket n. " + str(tckNumbers[cliente]) + " sul Cliente " + cliente + "per il prodotto " + prodotto + " e per il seguente problema  " + descrizione + ".Entro poche ore sarà contattato. Posso fare altro?"
