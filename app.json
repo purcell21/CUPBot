@@ -1,7 +1,7 @@
 {
-  "name": "API.AI Shipping Costs Webhook",
-  "description": "API.AI Shipping Costs Webhook Sapmple",
-  "repository": "https://github.com/svet4/shipping-costs-sample",
+  "name": "API.AI EngServiceDesk Webhook",
+  "description": "API.AI EngServiceDesk Webhook Sapmple",
+  "repository": "https://github.com/purcell21/api.ai-serviceDesk.git",
   "logo": "http://xvir.github.io/img/apiai.png",
   "keywords": ["api.ai", "natural language"]
 }
