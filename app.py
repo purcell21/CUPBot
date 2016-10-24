@@ -31,12 +31,32 @@ def makeWebhookResult(req):
     if req.get("result").get("action") != "ticket.open":
         return {}
 
+    #server = smtplib.SMTP('smtp.gmail.com', 587)
+    #server.starttls()
+    #server.login("sdesk371@gmail.com","ServiceDesk21")
+    from email.MIMEMultipart import MIMEMultipart
+    from email.MIMEText import MIMEText
+    
+    fromaddr = "sdesk371@gmail.com"
+    toaddr = "antonio.porcelli@hotmail.it"
+    
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "ticket"
+    body = "YOUR MESSAGE HERE"
+    msg.attach(MIMEText(body, 'plain'))
+    
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("sdesk371@gmail.com","ServiceDesk21")
-    msg = "YOUR MESSAGE!"
-    server.sendmail("sdesk371@gmail.com","antonio.porcelli@hotmail.it",msg)
+    server.login(fromaddr, "ServiceDesk21")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
     server.quit()
+    
+    #msg = "YOUR MESSAGE!"
+    #server.sendmail("sdesk371@gmail.com","antonio.porcelli@hotmail.it",msg)
+    #server.quit()
     
     result = req.get("result")
     parameters = result.get("parameters")
