@@ -37,7 +37,7 @@ def makeWebhookResult(req):
     password = 'pURCELL210174@'
     
     server = smtplib.SMTP('smtp.gmail.com:587')
-    server.ehlo()
+    #server.ehlo()
     server.starttls()
     server.login(username,password)
     server.sendmail(fromaddr, toaddrs, msg)
