@@ -28,16 +28,18 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "shipping.cost":
+    if req.get("result").get("action") != "ticket.open":
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
-    zone = parameters.get("shipping-zone")
+    cliente = parameters.get("cliente")
+    prodottto = parameters.get("prodotto")
+    descrizione = parameters.get("descrizione")
 
-    cost = {'Europe':600, 'North America':300, 'South America':400, 'Asia':500, 'Africa':600}
-
-    speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
-
+    tckNumbers = {'AO Colli':178934, 'ASL Salerno':789876}
+    
+    speech = "In questo momento non riesco ad aiutarla. Ho comunque aperto il ticket n. " + str(tckNumbers[cliente]) + " sul Cliente " + cliente + "per il prodotto " + prodotto + " e per il seguente problema  " + descrizione + ".Entro poche ore sarà contattato. Posso fare altro?"
+    
     print("Response:")
     print(speech)
 
@@ -46,7 +48,7 @@ def makeWebhookResult(req):
         "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        "source": "apiai-onlinestore-shipping"
+        "source": "apiai-engServiceDesk"
     }
 
 
