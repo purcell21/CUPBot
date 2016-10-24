@@ -34,11 +34,12 @@ def makeWebhookResult(req):
     gmail_user = 'sdesk371@gmail.com'  
     gmail_password = 'ServiceDesk21'
 
-    from = gmail_user  
-    to = ['me@gmail.com', 'bill@gmail.com']  
     subject = 'Message'  
     body = 'Hey'
-
+    
+    from='sdesk371@gmail.com'
+    to='antonio.porcelli@hotmail.it'
+    
     email_text = """\  
         From: %s  
         To: %s  
@@ -48,7 +49,7 @@ def makeWebhookResult(req):
     server.starttls()
     server.login(gmail_user, gmail_password)
     msg = "YOUR MESSAGE!"
-    server.sendmail("sdesk371@gmail.com","antonio.porcelli@hotmail.it",email_text)
+    server.sendmail(from,to,email_text)
     server.quit()
     
     result = req.get("result")
