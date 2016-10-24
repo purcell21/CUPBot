@@ -39,17 +39,12 @@ def makeWebhookResult(req):
     
     from='sdesk371@gmail.com'
     to='antonio.porcelli@hotmail.it'
-    
-    email_text = """\  
-        From: %s  
-        To: %s  
-        Subject: %s %s """ % (from, ", ".join(to), subject, body)
-
+   
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(gmail_user, gmail_password)
     msg = "YOUR MESSAGE!"
-    server.sendmail(from,to,email_text)
+    server.sendmail(from,to,msg)
     server.quit()
     
     result = req.get("result")
