@@ -50,7 +50,7 @@ def makeWebhookResult(req):
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = "ticket"
+    msg['Subject'] = "Apertura ticket n." + str(numtck[cliente]) + " - Cliente - " + cliente
     body = speech
     msg.attach(MIMEText(body, 'plain'))
     
