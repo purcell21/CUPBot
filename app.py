@@ -42,7 +42,7 @@ def makeWebhookResult(req):
     numtck = {'AO Colli':200, 'AOU Federico II':300, 'AOU Ruggi':400, 'ASL Salerno':500, 'Soresa':600, 'Santobono':700, 'Pascale':800, 'ASL Caserta':900}
     
     #speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
-    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + ". Posso fare altro?"
+    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione " + "'" + descrizione + "'" + ".Posso fare altro?"
 
     print("Response:")
     print(speech)
