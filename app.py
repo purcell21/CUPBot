@@ -30,21 +30,12 @@ def webhook():
 def makeWebhookResult(req):
     if req.get("result").get("action") != "ticket.open":
         return {}
-    
-    gmail_user = 'sdesk371@gmail.com'  
-    gmail_password = 'ServiceDesk21'
 
-    subject = 'Message'  
-    body = 'Hey'
-    
-    from='sdesk371@gmail.com'
-    to='antonio.porcelli@hotmail.it'
-   
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login(gmail_user, gmail_password)
+    server.login("sdesk371@gmail.com","ServiceDesk21")
     msg = "YOUR MESSAGE!"
-    server.sendmail(from,to,msg)
+    server.sendmail("sdesk371@gmail.com","antonio.porcelli@hotmail.it",msg)
     server.quit()
     
     result = req.get("result")
