@@ -62,7 +62,7 @@ def makeWebhookResult(req):
         #fine invio e-mail 
     elif req.get("result").get("action") == "username.invio_via_email":
         speech="Username inviata"
-    else return  {}
+    else: return  {}
     
     # fine apertura ticket
     print("Response:")
