@@ -61,7 +61,7 @@ def makeWebhookResult(req):
         server.quit()
         #fine invio e-mail 
        elif req.get("result").get("action") == "username.invio_via_email":
-        rerturn  {}
+        speech="Username inviata"
        else return  {}
     
     # fine apertura ticket
