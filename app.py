@@ -60,9 +60,9 @@ def makeWebhookResult(req):
         server.sendmail(fromaddr, toaddr, text)
         server.quit()
         #fine invio e-mail 
-       #elif req.get("result").get("action") == "username.invio_via_email":
-       # speech="Username inviata"
-       else return  {}
+    elif req.get("result").get("action") == "username.invio_via_email":
+        speech="Username inviata"
+    else return  {}
     
     # fine apertura ticket
     print("Response:")
