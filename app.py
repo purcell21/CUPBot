@@ -62,9 +62,9 @@ def makeWebhookResult(req):
         server.sendmail(fromaddr, toaddr, text)
         server.quit()
         #fine invio e-mail
+        
         print("Response:")
         print(speech)
-        
 return {
     "speech": speech,
     "displayText": speech,
@@ -72,7 +72,7 @@ return {
      # "contextOut": [],
      "source": "apiai"
 }
-     #fine apertura ticke
+#fine apertura ticket
     
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
