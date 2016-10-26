@@ -28,8 +28,7 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-  
-    if req.get("result").get("action") == "ticket.open"
+    if req.get("result").get("action") == "ticket.open":
     {
         # inizio apertura ticket
         result = req.get("result")
@@ -62,7 +61,7 @@ def makeWebhookResult(req):
         server.sendmail(fromaddr, toaddr, text)
         server.quit()
         #fine invio e-mail 
-       } eslse if req.get("result").get("action") == "userna.invio_via_email"
+       } eslse if req.get("result").get("action") == "userna.invio_via_email":
     {
        rerturn  {}
     }else return  {}
