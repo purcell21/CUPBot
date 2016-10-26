@@ -28,8 +28,9 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    speech=""
-    if req.get("result").get("action") == "ticket.open":
+    if req.get("result").get("action") != "ticket.open":
+        return  {}
+    
         # inizio apertura ticket
         result = req.get("result")
         parameters = result.get("parameters")
@@ -63,24 +64,15 @@ def makeWebhookResult(req):
         #fine invio e-mail
         print("Response:")
         print(speech)
-        return {
-                "speech": speech,
-                "displayText": speech,
-                #"data": {},
-                # "contextOut": [],
-                "source": "apiai"
-        }
-     #fine apertura ticket
-    elif req.get("result").get("action") == "username.invio_via_email":
-        speech="Username inviata"
-         return {
-                "speech": speech,
-                "displayText": speech,
-                #"data": {},
-                # "contextOut": [],
-                "source": "apiai"
-        }
-    else: return {}
+        
+return {
+    "speech": speech,
+    "displayText": speech,
+     #"data": {},
+     # "contextOut": [],
+     "source": "apiai"
+}
+     #fine apertura ticke
     
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
