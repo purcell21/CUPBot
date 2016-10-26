@@ -62,12 +62,10 @@ def makeWebhookResult(req):
         #fine invio e-mail 
     elif req.get("result").get("action") == "username.invio_via_email":
         speech="Username inviata"
-    else: return  {}
-    
+    else:return {}   
     # fine apertura ticket
     print("Response:")
     print(speech)
-
 return {
         "speech": speech,
         "displayText": speech,
@@ -75,7 +73,6 @@ return {
         # "contextOut": [],
         "source": "apiai"
     }
-
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
