@@ -91,7 +91,7 @@ def invioViaEmailRAGA(req):
     msg['From'] = fromaddr
     msg['To'] = toaddr
     msg['Subject'] = "no-replay: So.Re.Sa SpA - Richiesta di Autorizzazione Gara - numero protocollo " + numeroPratica
-    body = "Gentile " + nomeUtente + " come richiesto, le comunichiamo che la pratica in oggetto e' in lavorazione"
+    body = "Gentile " + nomeUtente + " come richiesto ti comunichiamo che la pratica in oggetto e' in lavorazione"
     msg.attach(MIMEText(body, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
