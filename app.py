@@ -76,7 +76,9 @@ def invioViaEmailRAGA(req):
 
     parameters = result.get("parameters")
     email = parameters.get("indirizzoMail")
-   
+    numeroPratica = parameters.get("numeroPratica")
+    nominativoRup = parameters.get("nominativoRup")
+    
     #inizio invio e-mail 
     from email.MIMEMultipart import MIMEMultipart
     from email.MIMEText import MIMEText
@@ -87,8 +89,8 @@ def invioViaEmailRAGA(req):
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = "no-replay:"
-    body = "Gentile Cliente"
+    msg['Subject'] = "no-replay: So.Re.Sa SpA - Richiesta di Autorizzazione Gara numero protocollo:" + numeroPratica
+    body = "Gentile " + nominativoRup + " come richeisto, le comunichiamo che la pratica in oggetto è in lavorazione"
     msg.attach(MIMEText(body, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
