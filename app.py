@@ -75,7 +75,7 @@ def invioViaEmailRAGA(req):
     print(result)
 
     parameters = result.get("parameters")
-    email = parameters.get("email")
+    email = parameters.get("indirizzoMail")
    
     #inizio invio e-mail 
     from email.MIMEMultipart import MIMEMultipart
