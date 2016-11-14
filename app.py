@@ -70,7 +70,7 @@ def ticketOpen(req):
         "source": "apiai"
     }
 
-def usernameInvioViaEmail(req):
+def invioViaEmailRAGA(req):
     result = req.get("result")
     print(result)
 
@@ -87,8 +87,8 @@ def usernameInvioViaEmail(req):
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = "no-replay: Richiesto cambio password"
-    body = "Gentile Cliente. Come richiesto di seguito la sua nuova password: pippoPluto123."
+    msg['Subject'] = "no-replay:"
+    body = "Gentile Cliente"
     msg.attach(MIMEText(body, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
@@ -98,21 +98,21 @@ def usernameInvioViaEmail(req):
     server.quit()
     #fine invio e-mail 
     
-    speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
+    #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
     
-    print("Response:")
-    print(speech)
+    #print("Response:")
+    #print(speech)
 
     return {
-        "speech": speech,
-        "displayText": speech,
+        #"speech": speech,
+        #"displayText": speech,
         #"data": {},
         # "contextOut": [],
-        "source": "apiai"
+        #"source": "apiai"
     }
 def makeWebhookResult(req): 
     if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
-    elif req.get("result").get("action") == "username.invio_via_email":return usernameInvioViaEmail(req) 
+    elif req.get("result").get("action") == "RAGA.invioInfo":return invioViaEmailRAGA(req) 
     else:return  {}
 
 if __name__ == '__main__':
