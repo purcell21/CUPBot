@@ -39,10 +39,6 @@ def makeWebhookResult(req):
         mailTo = parameters.get("indirizzoMail")
         numeroRichiesta=parameters.get("numeroRichiesta")
         
-    
-        #numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
-        #speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
-
         #inizio invio e-mail 
         from email.MIMEMultipart import MIMEMultipart
         from email.MIMEText import MIMEText
@@ -53,8 +49,7 @@ def makeWebhookResult(req):
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia n." + numeroRichiesta + ""
-        #body = "Aperto ticket n." + str(numtck[cliente]) + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'."
+        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia n." + numeroRichiesta
         body = "Salve, la richiesta di autorizzazione in oggetto è nello stato di lavorazione. Quanto prima i funzionari So.Re.Sa le risponderanno."
         
         msg.attach(MIMEText(body, 'plain'))
@@ -69,6 +64,7 @@ def makeWebhookResult(req):
         
         print("Response:")
         print(speech)
+
 return {
     "speech": speech,
     "displayText": speech,
