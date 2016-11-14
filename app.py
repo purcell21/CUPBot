@@ -110,41 +110,9 @@ def usernameInvioViaEmail(req):
         # "contextOut": [],
         "source": "apiai"
     }
-
-def invioInfoRAGA(req):
-    result = req.get("result")
-    print(result)
-
-    parameters = result.get("parameters")
-    email = parameters.get("indirizzoMail")
-    numeroPratica = parameters.get("numeroPratica")
-
-    #inizio invio e-mail 
-    from email.MIMEMultipart import MIMEMultipart
-    from email.MIMEText import MIMEText
-    
-    fromaddr = "sdesk371@gmail.com"
-    toaddr = email
-    
-    msg = MIMEMultipart()
-    msg['From'] = fromaddr
-    msg['To'] = toaddr
-    msg['Subject'] = "no-replay - So.Re.Sa Personal Assistant: Richiesta informazioni su Richiesta di Autorizzazione N." + numeroPratica
-    body = "Gentile Cliente, come richiesto le comunichiamo che la pratica in oggetto è al momento in carico ai funzionari So.Re.Sa. Presto le verrà comunicato l'esito (positivo o negativo)."
-    msg.attach(MIMEText(body, 'plain'))
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(fromaddr, "ServiceDesk21")
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
-    server.quit()
-    #fine invio e-mail 
-    return {}
-
 def makeWebhookResult(req): 
     if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
     elif req.get("result").get("action") == "username.invio_via_email":return usernameInvioViaEmail(req) 
-    elif req.get("result").get("action") == "RAGA.invioInfo":return invioInfoRAGA(req) 
     else:return  {}
 
 if __name__ == '__main__':
