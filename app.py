@@ -28,31 +28,35 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "ticket.open":
+    if req.get("result").get("action") != "RAGA.sendINFO":
         return  {}
     
-        # inizio apertura ticket
+        # recupero richiesta
         result = req.get("result")
         parameters = result.get("parameters")
-        descrizione = parameters.get("descrizione")
-        cliente = parameters.get("cliente")
-        prodotto = parameters.get("prodotto")
-
-        numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
-        speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
+        
+        # recupero parametri del metodo RAGA.sendINFO
+        mailTo = parameters.get("indirizzoMail")
+        numeroRichiesta=parameters.get("numeroRichiesta")
+        
+    
+        #numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
+        #speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
 
         #inizio invio e-mail 
         from email.MIMEMultipart import MIMEMultipart
         from email.MIMEText import MIMEText
 
         fromaddr = "sdesk371@gmail.com"
-        toaddr = "antonio.porcelli@hotmail.it"
+        toaddr = mailTo
 
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        msg['Subject'] = "Apertura ticket n." + str(numtck[cliente]) + " - Cliente - " + cliente
-        body = "Aperto ticket n." + str(numtck[cliente]) + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'."
+        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia n." + numeroRichiesta + ""
+        #body = "Aperto ticket n." + str(numtck[cliente]) + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'."
+        body = "Salve, la richiesta di autorizzazione in oggetto è nello stato di lavorazione. Quanto prima i funzionari So.Re.Sa le risponderanno."
+        
         msg.attach(MIMEText(body, 'plain'))
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -70,9 +74,8 @@ return {
     "displayText": speech,
      #"data": {},
      # "contextOut": [],
-     "source": "apiai"
+     "source": "soresapersonalassistant"
 }
-#fine apertura ticket
     
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
