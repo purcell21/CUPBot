@@ -1,4 +1,4 @@
-#/usr/bin/env python
+#!/usr/bin/env python
 
 import urllib
 import json
@@ -15,7 +15,6 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-
     print("Request:")
     print(json.dumps(req, indent=4))
 
@@ -27,47 +26,95 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def makeWebhookResult(req):
-    if req.get("result").get("action") != "RAGA.sendINFO":
-        return  {}
-        result = req.get("result")
-        parameters = result.get("parameters")
-        mailTo = parameters.get("indirizzoMail")
-        numeroRichiesta=parameters.get("numeroRichiesta")
-        
-        #inizio invio e-mail 
-        from email.MIMEMultipart import MIMEMultipart
-        from email.MIMEText import MIMEText
+def ticketOpen(req):
+    result = req.get("result")
+    print(result)
 
-        fromaddr = "sdesk371@gmail.com"
-        toaddr = mailTo
+    parameters = result.get("parameters")
+    descrizione = parameters.get("descrizione")
+    cliente = parameters.get("cliente")
+    prodotto = parameters.get("prodotto")
 
-        msg = MIMEMultipart()
-        msg['From'] = fromaddr
-        msg['To'] = toaddr
-        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia"
-        body = "Salve, la richiesta di autorizzazione in oggetto è nello stato di lavorazione. Quanto prima i funzionari So.Re.Sa le risponderanno."
-        
-        msg.attach(MIMEText(body, 'plain'))
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(fromaddr, "ServiceDesk21")
-        text = msg.as_string()
-        server.sendmail(fromaddr, toaddr, text)
-        server.quit()
-        #fine invio e-mail
-        
-        print("Response:")
-        print(speech)
+    numtck = {'AO Colli':127892, 'AOU Federico II':871865, 'AOU Ruggi':787265, 'ASL Salerno':902876, 'Soresa':276734, 'Santobono':676754, 'Pascale':878971, 'ASL Caserta':897654}
+    speech = "In questo momento non posso aiutarla. Ho aperto il ticket n." + str(numtck[cliente]) + " per il Cliente " + cliente + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
 
-return {
-    "speech": speech,
-    "displayText": speech,
-     #"data": {},
-     # "contextOut": [],
-     "source": "soresapersonalassistant"
-}
+    #inizio invio e-mail 
+    from email.MIMEMultipart import MIMEMultipart
+    from email.MIMEText import MIMEText
     
+    fromaddr = "sdesk371@gmail.com"
+    toaddr = "antonio.porcelli@hotmail.it"
+    
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "Apertura ticket n." + str(numtck[cliente]) + " - Cliente - " + cliente
+    body = "Aperto ticket n." + str(numtck[cliente]) + " sul prodotto/servizio " + prodotto + " con la seguente descrizione '" + descrizione + "'.Posso fare altro?"
+    msg.attach(MIMEText(body, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "ServiceDesk21")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    #fine invio e-mail 
+    
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        #"data": {},
+        # "contextOut": [],
+        "source": "apiai"
+    }
+
+def usernameInvioViaEmail(req):
+    result = req.get("result")
+    print(result)
+
+    parameters = result.get("parameters")
+    email = parameters.get("email")
+   
+    #inizio invio e-mail 
+    from email.MIMEMultipart import MIMEMultipart
+    from email.MIMEText import MIMEText
+    
+    fromaddr = "sdesk371@gmail.com"
+    toaddr = email
+    
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "no-replay: Richiesto cambio password"
+    body = "Gentile Cliente. Come richiesto di seguito la sua nuova password: pippoPluto123."
+    msg.attach(MIMEText(body, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "ServiceDesk21")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    #fine invio e-mail 
+    
+    speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
+    
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        #"data": {},
+        # "contextOut": [],
+        "source": "apiai"
+    }
+def makeWebhookResult(req): 
+    if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
+    elif req.get("result").get("action") == "username.invio_via_email":return usernameInvioViaEmail(req) 
+    else:return  {}
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
