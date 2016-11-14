@@ -30,12 +30,8 @@ def webhook():
 def makeWebhookResult(req):
     if req.get("result").get("action") != "RAGA.sendINFO":
         return  {}
-    
-        # recupero richiesta
         result = req.get("result")
         parameters = result.get("parameters")
-        
-        # recupero parametri del metodo RAGA.sendINFO
         mailTo = parameters.get("indirizzoMail")
         numeroRichiesta=parameters.get("numeroRichiesta")
         
@@ -49,11 +45,10 @@ def makeWebhookResult(req):
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia n." + numeroRichiesta
+        msg['Subject'] = "So.Re.Sa - Richiesta di Autorizzazione Gara in Autonomia"
         body = "Salve, la richiesta di autorizzazione in oggetto è nello stato di lavorazione. Quanto prima i funzionari So.Re.Sa le risponderanno."
         
         msg.attach(MIMEText(body, 'plain'))
-
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(fromaddr, "ServiceDesk21")
