@@ -103,17 +103,17 @@ def invioCodiceAccesso(req):
     server.quit()
     #fine invio e-mail 
     
-    #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
-    
-    #print("Response:")
-    #print(speech)
+    speech ="Bene. Hai chiesto di avere informazioni circa la pratica di autorizzazione di espletamento gara in autonomia per il RUP (o funzionario di riferimento) " + nominativoRup + " Ho appena inviato una e-mail all'indirizzo associato al riferimento " + nominativoRup + " Inserisci il codice così posso autorizzarti ad accedere alla documentazione richiesta."
+        
+    print("Response:")
+    print(speech)
 
     return {
-        #"speech": speech,
-        #"displayText": speech,
+        "speech": speech,
+        "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        #"source": "apiai"
+        "source": "soresapersonalassistant"
     }
 def invioViaEmailRAGA(req):
     result = req.get("result")
