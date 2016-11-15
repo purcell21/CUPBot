@@ -83,12 +83,11 @@ def invioCodiceAccesso(req):
     #inizio invio e-mail 
     from email.MIMEMultipart import MIMEMultipart
     from email.MIMEText import MIMEText
+    numCodice = {'Palma Romano':127892, 'Mario Rossi':871865}
+    indirizziMail= {'Palma Romano':"antonio.porcelli@hotmail.it", 'Mario Rossi':"antonio.porcelli21@gmail.com"}
     
     fromaddr = "sdesk371@gmail.com"
     toaddr = str(indirizziMail[nominativoRup])
-    #toaddr = "antonio.porcelli@hotmail.it"
-    numCodice = {'Palma Romano':127892, 'Mario Rossi':871865}
-    indirizziMail= {'Palma Romano':"antonio.porcelli@hotmail.it", 'Mario Rossi':"antonio.porcelli21@gmail.com"}
 
     msg = MIMEMultipart()
     msg['From'] = fromaddr
