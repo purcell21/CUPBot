@@ -70,6 +70,52 @@ def ticketOpen(req):
         "source": "apiai"
     }
 
+def invioCodiceAccesso(req):
+    result = req.get("result")
+    print(result)
+
+    parameters = result.get("parameters")
+
+    email = parameters.get("indirizzoMail")
+    nominativoRup = parameters.get("nominativoRup")
+    nomeUtente= parameters.get("nomeUtente")
+
+    #inizio invio e-mail 
+    from email.MIMEMultipart import MIMEMultipart
+    from email.MIMEText import MIMEText
+    
+    fromaddr = "sdesk371@gmail.com"
+    toaddr = str(indirizziMail[nominativoRup])
+   
+    numCodice = {'Palma Romano':127892, 'Mario Rossi':871865}
+    indirizziMail= {'Palma Romano':"antonio.porcelli@hotmail.it", 'Mario Rossi':"antonio.porcelli21@gmail.com"}
+
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "no-replay: So.Re.Sa SpA - Richiesta di Autorizzazione Gara - invio codice di accesso "
+    body = "Gentile " + nomeUtente + " questo è il codice di accesso per l'autorizzazione al servizio: " + str(numCodice[nominativoRup])
+    msg.attach(MIMEText(body, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "ServiceDesk21")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    #fine invio e-mail 
+    
+    #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
+    
+    #print("Response:")
+    #print(speech)
+
+    return {
+        #"speech": speech,
+        #"displayText": speech,
+        #"data": {},
+        # "contextOut": [],
+        #"source": "apiai"
+    }
 def invioViaEmailRAGA(req):
     result = req.get("result")
     print(result)
@@ -116,6 +162,7 @@ def invioViaEmailRAGA(req):
 def makeWebhookResult(req): 
     if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
     elif req.get("result").get("action") == "RAGA.invioInfo":return invioViaEmailRAGA(req) 
+    elif req.get("result").get("action") == "RAGA.invioCodiceAccesso":return invioCodiceAccesso(req) 
     else:return  {}
 
 if __name__ == '__main__':
