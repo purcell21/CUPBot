@@ -103,7 +103,7 @@ def invioCodiceAccesso(req):
     server.quit()
     #fine invio e-mail 
     
-    speech ="Bene. Hai chiesto di avere informazioni circa la pratica di autorizzazione di espletamento gara in autonomia per il RUP (o funzionario di riferimento) " + nominativoRup + " Ho appena inviato una e-mail all'indirizzo associato al riferimento " + nominativoRup + " Inserisci il codice cosi' posso autorizzarti ad accedere alla documentazione richiesta."
+    speech ="Bene. Hai chiesto di avere informazioni circa la pratica di autorizzazione di espletamento gara in autonomia per il RUP (o funzionario di riferimento) " + nominativoRup + ".Ho appena inviato una e-mail all'indirizzo associato al riferimento " + nominativoRup + ".Inserisci il codice cosi' posso autorizzarti ad accedere alla documentazione richiesta."
         
     print("Response:")
     print(speech)
