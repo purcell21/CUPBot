@@ -85,16 +85,16 @@ def invioCodiceAccesso(req):
     from email.MIMEText import MIMEText
     
     fromaddr = "sdesk371@gmail.com"
-    #toaddr = str(indirizziMail[nominativoRup])
-    toaddr = "antonio.porcelli@hotmail.it"
+    toaddr = str(indirizziMail[nominativoRup])
+    #toaddr = "antonio.porcelli@hotmail.it"
     numCodice = {'Palma Romano':127892, 'Mario Rossi':871865}
-    #indirizziMail= {'Palma Romano':"antonio.porcelli@hotmail.it", 'Mario Rossi':"antonio.porcelli21@gmail.com"}
+    indirizziMail= {'Palma Romano':"antonio.porcelli@hotmail.it", 'Mario Rossi':"antonio.porcelli21@gmail.com"}
 
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
     msg['Subject'] = "no-replay: So.Re.Sa SpA - Richiesta di Autorizzazione Gara - invio codice di accesso "
-    body = "Gentile " + nomeUtente + " questo è il codice di accesso per l'autorizzazione al servizio: " + str(numCodice[nominativoRup])
+    body = "Gentile " + nomeUtente + " questo e' il codice di accesso per l'autorizzazione al servizio: " + str(numCodice[nominativoRup])
     msg.attach(MIMEText(body, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
