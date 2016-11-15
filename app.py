@@ -77,7 +77,7 @@ def invioCodiceAccesso(req):
     parameters = result.get("parameters")
 
     email = parameters.get("indirizzoMail")
-    nominativoRup = parameters.get("nominativoRup")
+    nominativoRup = parameters.get("nominativo-rup")
     nomeUtente= parameters.get("nomeUtente")
 
     #inizio invio e-mail 
