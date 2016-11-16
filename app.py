@@ -146,17 +146,18 @@ def invioViaEmailRAGA(req):
     server.quit()
     #fine invio e-mail 
     
+    speech ="Perfetto. La pratica di cui hai richiesto informazioni, risulta essere presa in carico dai funzionari della SoReSa. Ti ho inviato una e-mail all'indirizzo " + toaddr + " con tutte informazioni legate alla pratica  numero " + numeroPratica + "."
     #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
     
-    #print("Response:")
-    #print(speech)
+    print("Response:")
+    print(speech)
 
     return {
-        #"speech": speech,
-        #"displayText": speech,
+        "speech": speech,
+        "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        #"source": "apiai"
+        "source": "soresapersonalassistant"
     }
 def makeWebhookResult(req): 
     if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
