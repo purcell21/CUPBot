@@ -146,7 +146,7 @@ def invioViaEmailRAGA(req):
     server.quit()
     #fine invio e-mail 
     
-    speech ="Perfetto. La pratica di cui hai richiesto informazioni, risulta essere presa in carico dai funzionari della SoReSa. Ti ho inviato una e-mail all'indirizzo " + toaddr + " con tutte informazioni legate alla pratica  numero " + numeroPratica + "."
+    speech ="Perfetto. La pratica di cui hai richiesto informazioni, risulta essere presa in carico dai funzionari della SoReSa. Ti ho inviato una e-mail all'indirizzo " + toaddr + " con tutte informazioni legate alla pratica  numero " + numeroPratica + ".Posso fare altro?"
     #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
     
     print("Response:")
