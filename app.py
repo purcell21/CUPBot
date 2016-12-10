@@ -145,9 +145,8 @@ def invioRiepilogoRichiesta(req):
     server.quit()
     #fine invio e-mail 
     
-    #speech ="Perfetto. La pratica di cui hai richiesto informazioni, risulta essere presa in carico dai funzionari della SoReSa. Ti ho inviato una e-mail all'indirizzo " + toaddr + " con tutte informazioni legate alla pratica  numero " + numeroPratica + "."
-    #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
-    
+    speech ="Perfetto. Ti ho inviato una e-mail all'indirizzo " + toaddr + " contenente il riepilogo della richista di prenotazione."
+
     print("Response:")
     print(speech)
 
