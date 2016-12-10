@@ -116,7 +116,7 @@ def invioCodiceAccesso(req):
         "source": "soresapersonalassistant"
     }
 
-def invioProspettoPrenotazione(req):
+def invioRiepilogoRichiesta(req):
     result = req.get("result")
     print(result)
 
@@ -207,6 +207,7 @@ def makeWebhookResult(req):
     if req.get("result").get("action") == "ticket.open":return ticketOpen(req)
     elif req.get("result").get("action") == "RAGA.invioInfo":return invioViaEmailRAGA(req) 
     elif req.get("result").get("action") == "RAGA.invioCodiceAccesso":return invioCodiceAccesso(req) 
+    elif req.get("result").get("action") == "CUP.invioRiepilogoRichiesta":return invioRiepilogoRichiesta(req) 
     else:return  {}
 
 if __name__ == '__main__':
