@@ -115,6 +115,50 @@ def invioCodiceAccesso(req):
         # "contextOut": [],
         "source": "soresapersonalassistant"
     }
+
+def invioProspettoPrenotazione(req):
+    result = req.get("result")
+    print(result)
+
+    parameters = result.get("parameters")
+    email = parameters.get("indirizzoMail")
+    nomeUtente = parameters.get("nomeUtente")
+    
+    #inizio invio e-mail 
+    from email.MIMEMultipart import MIMEMultipart
+    from email.MIMEText import MIMEText
+    
+    fromaddr = "sdesk371@gmail.com"
+    toaddr = email
+    
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "no-replay: ASL di Lecce - Servizio di Prenotazione CUP - Riepilogo Richiesta Prenotazione"
+    body = "Gentile " + nomeUtente + " con la presente comunichiamo l'avvenuta prenotazione della visita specialistica. Di seguito un riepilogo della richiesta:"
+    msg.attach(MIMEText(body, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "ServiceDesk21")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    #fine invio e-mail 
+    
+    #speech ="Perfetto. La pratica di cui hai richiesto informazioni, risulta essere presa in carico dai funzionari della SoReSa. Ti ho inviato una e-mail all'indirizzo " + toaddr + " con tutte informazioni legate alla pratica  numero " + numeroPratica + "."
+    #speech ="Le ho appena inviato la nuova password all'indirizzo email:" + email + ". La cambi al primo accesso."
+    
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        #"data": {},
+        # "contextOut": [],
+        "source": "aslleccecupbot"
+    }
+
 def invioViaEmailRAGA(req):
     result = req.get("result")
     print(result)
